@@ -5,6 +5,7 @@ import java.util.List;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
 import org.hl7.fhir.r4.model.CodeableConcept;
+import org.hl7.fhir.r4.model.Coding;
 import org.hl7.fhir.r4.model.Composition;
 import org.hl7.fhir.r4.model.Composition.SectionComponent;
 import org.hl7.fhir.r4.model.DateTimeType;
@@ -32,6 +33,8 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 
 	private static final CodeableConcept USAGENT_CONCEPT = new CodeableConcept().setText("USAGENT");
 	private static final CodeableConcept IMPORTER_CONCEPT = new CodeableConcept().setText("IMPORTER");
+	private static final String DOCID_URL = "DOCID_URL";
+	private static final String VERSION_NUMBER_URL = "VERSION_NUMBER_URL";
 
 	@Autowired
 	private IFhirResourceDao<Composition> compositionDao;
@@ -83,9 +86,18 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 		operationComposition.setDateElement(operationDate);
 		operationComposition.setIdentifier(operationSetId);
 		Extension compIdentityExtension = new Extension();
-		compIdentityExtension.addExtension(new Extension("url for id goes here", operationId));
-		compIdentityExtension.addExtension(new Extension("url for id goes here", operationVersion));
+		compIdentityExtension.addExtension(new Extension(DOCID_URL, operationId));
+		compIdentityExtension.addExtension(new Extension(VERSION_NUMBER_URL, operationVersion));
 		operationComposition.addExtension(compIdentityExtension);
+		operationComposition.setTitle("Establishment Registration");
+		
+		CodeableConcept compType = new CodeableConcept();
+		Coding compTypeCoding = new Coding();
+		compTypeCoding.setCode("51725-0");
+		compTypeCoding.setSystem("http://loinc.org");
+		compTypeCoding.setDisplay("ESTABLISHMENT REGISTRATION");
+		compType.addCoding(compTypeCoding);
+		operationComposition.setType(compType);
 
 
 		//Set the author of the composition to be the registrant
@@ -161,7 +173,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 		Bundle orgBundle = new Bundle();
 		int intSizeOrgBundle = 0;
 		String strEstablishmentId = "";
-
+		
 		//Retrieve all the Organization resources using the input "identifier".
 		//This includes the mandatory "Establishment", optional "US Agent" and
 		//"Importer" Organization resources
