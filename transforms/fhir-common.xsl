@@ -55,7 +55,9 @@
                     <div class="DataElementsTables">
                         <xsl:apply-templates mode="subjects" select="v3:entry/v3:resource/v3:Composition/v3:contained/v3:Organization"/>
                         <xsl:variable name="orgReference" select="v3:entry/v3:resource/v3:Composition/v3:section/v3:entry/v3:reference/@value"/>
-                        <xsl:apply-templates mode="subjects" select="v3:entry[ends-with(v3:fullUrl/@value,$orgReference)]/v3:resource/v3:Organization"/>
+						<xsl:variable name="orgEntry" select="v3:entry[$orgReference = substring(v3:fullUrl/@value, string-length(v3:fullUrl/@value) - string-length($orgReference) +1)]"/>
+						
+                        <xsl:apply-templates mode="subjects" select="$orgEntry/v3:resource/v3:Organization"/>
                      </div>
                 </xsl:if>
                 <p>
