@@ -91,6 +91,7 @@
     
     <xsl:template mode="subjects" match="//v3:resource/v3:Organization">	
         <xsl:if test="./v3:name">
+            <xsl:variable name="orgId" select="concat('Organization/',./v3:id/@value)"/>
             <table width="100%" cellpadding="3" cellspacing="0" class="formTableMorePetite">
                 <tr>
                     <td colspan="4" class="formHeadingReg">
@@ -118,51 +119,13 @@
                         <xsl:if test="./v3:identifier[v3:system/@value='urn:oid:1.3.6.1.4.1.519.1']/v3:value/@value and ./v3:identifier[not(v3:system/@value='urn:oid:1.3.6.1.4.1.519.1')]/v3:value/@value">/</xsl:if><xsl:value-of select="./v3:identifier[not(v3:system/@value='urn:oid:1.3.6.1.4.1.519.1')]/v3:value/@value"/>
                     </td>
                     <td class="formItem">
-                        <xsl:for-each select="../v3:performance[not(v3:actDefinition/v3:code/@code = preceding-sibling::*/v3:actDefinition/v3:code/@code)]/v3:actDefinition/v3:code">
-                            <xsl:variable name="code" select="@code"/>
-                            <xsl:value-of select="@displayName"/>
-                            <xsl:if test="/v3:document[v3:code/@code = '75030-7'] and ../v3:subjectOf/v3:approval">
-                                <xsl:text> - </xsl:text>
-                            </xsl:if>	
-                            <xsl:variable name="itemCodes" select="../../../v3:performance/v3:actDefinition[v3:code/@code = $code]/v3:product/v3:manufacturedProduct/v3:manufacturedMaterialKind/v3:code/@code"/>
-                            <xsl:if test="$itemCodes">
+                        <xsl:for-each select="../../../v3:entry/v3:resource/v3:HealthcareService[v3:providedBy/v3:reference/@value = $orgId]">
+                            <xsl:variable name="code" select="v3:type/v3:coding/v3:code/@value"/>
+                            <xsl:value-of select="v3:type/v3:coding/v3:display/@value"/>
+                            <xsl:for-each select="v3:specialty/v3:coding">
                                 <xsl:text>(</xsl:text>
-                                <xsl:for-each select="$itemCodes">
-                                    <xsl:value-of select="."/>
-                                    <xsl:if test="position()!=last()">, </xsl:if>
-                                </xsl:for-each>
-                                <xsl:text>) </xsl:text>
-                            </xsl:if>
-                            <xsl:for-each select="../v3:subjectOf/v3:approval/v3:code[@code]">
-                                <xsl:text>(</xsl:text>
-                                <xsl:value-of select="@displayName"/>
+                                <xsl:value-of select="v3:display/@value"/>
                                 <xsl:text>)</xsl:text>
-                                <xsl:if test="/v3:document/v3:code/@code='75030-7' and ../v3:id[@extension]">
-                                    <xsl:text>, License Info </xsl:text>
-                                    <xsl:text>(</xsl:text>
-                                    <xsl:value-of select="concat('Number: ', ../v3:id/@extension, ', ')"/>
-                                    <xsl:value-of select="concat('State: ', ../descendant::v3:territory/v3:code/@code, ', ')"/>
-                                    <xsl:value-of select="concat('Status: ', ../v3:statusCode/@code)"/>
-                                    <xsl:text>) </xsl:text> 
-                                </xsl:if>
-                                <xsl:for-each select="../v3:subjectOf/v3:action/v3:code[@code]">
-                                    <xsl:if test="position()!=last()">, </xsl:if>
-                                    <xsl:value-of select="@displayName" />
-                                    <xsl:text>(</xsl:text>
-                                    <xsl:if test="../v3:code[@displayName = 'other']">
-                                        <xsl:text>Text-</xsl:text>
-                                        <xsl:value-of select="../v3:text/text()"/>
-                                        <xsl:if test="../v3:subjectOf/v3:document">
-                                            <xsl:text>, </xsl:text>
-                                        </xsl:if>
-                                    </xsl:if>
-                                    <xsl:for-each select="../v3:subjectOf/v3:document/v3:text[@mediaType]/v3:reference">
-                                        <xsl:value-of select="@value" />
-                                        <xsl:if test="position()!=last()">, </xsl:if>								
-                                    </xsl:for-each>
-                                    <xsl:text>)</xsl:text>	
-                                    <xsl:if test="position()!=last()">, </xsl:if>								
-                                </xsl:for-each>
                                 <xsl:if test="position()!=last()">, </xsl:if>
                             </xsl:for-each>
                             <xsl:if test="position()!=last()">, </xsl:if>
@@ -170,7 +133,7 @@
                     </td>
                 </tr>
                 <xsl:call-template name="data-contactParty"/>
-                <xsl:for-each select="./v3:assignedEntity[v3:performance/v3:actDefinition/v3:code/@code='C73330']/v3:assignedOrganization">
+                <xsl:for-each select="../../../v3:entry/v3:resource/v3:Organization[concat('Organization/', v3:id/@value) = ../../../v3:entry/v3:resource/v3:OrganizationAffiliation[v3:organization/v3:reference/@value = $orgId][v3:code/v3:text/@value='USAGENT']/v3:participatingOrganization/v3:reference/@value]">
                     <xsl:if test="position() = 1">
                         <tr>
                             <th scope="col" class="formTitle">US Agent (ID)</th>
@@ -182,30 +145,30 @@
                     <tr class="formTableRowAlt">
                         <td class="formItem">
                             <xsl:value-of select="v3:name"/>
-                            <xsl:for-each select="v3:id/@extension">
+                            <xsl:for-each select="v3:identifier/v3:value/@value">
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="."/>
                                 <xsl:text>)</xsl:text>
                             </xsl:for-each>
                         </td>
                         <td class="formItem">		
-                            <xsl:apply-templates mode="format" select="v3:addr"/>
+                            <xsl:apply-templates mode="format" select="v3:address"/>
                         </td>
                         <td class="formItem">
-                            <xsl:value-of select=" substring-after(v3:telecom/@value[starts-with(.,'tel:')][1], 'tel:')"/>
-                            <xsl:for-each select="v3:telecom/@value[starts-with(.,'fax:')]">
+                            <xsl:value-of select="v3:telecom[v3:system/@value='phone'][1]/v3:value/@value"/>
+                            <xsl:for-each select="v3:telecom[v3:system/@value='fax']">
                                 <br/>
                                 <xsl:text>FAX: </xsl:text>
-                                <xsl:value-of select="substring-after(., 'fax:')"/>
+                                <xsl:value-of select="v3:value/@value"/>
                             </xsl:for-each>
                         </td>
                         <td class="formItem">
-                            <xsl:value-of select=" substring-after(v3:telecom/@value[starts-with(.,'mailto:')][1], 'mailto:')"/>
+                            <xsl:value-of select="v3:telecom[v3:system/@value='email'][1]/v3:value/@value"/>
                         </td>
                     </tr>
                 </xsl:for-each>
                 <!-- 53617 changed to 73599 -->
-                <xsl:for-each select="./v3:assignedEntity[v3:performance/v3:actDefinition/v3:code/@code='C73599']/v3:assignedOrganization">	
+                <xsl:for-each select="../../../v3:entry/v3:resource/v3:Organization[concat('Organization/', v3:id/@value) = ../../../v3:entry/v3:resource/v3:OrganizationAffiliation[v3:organization/v3:reference/@value = $orgId][v3:code/v3:text/@value='IMPORTER']/v3:participatingOrganization/v3:reference/@value]">	
                     <xsl:if test="position() = 1">
                         <tr>
                             <th scope="col" class="formTitle">Importer (ID)</th>
@@ -217,25 +180,25 @@
                     <tr class="formTableRowAlt">
                         <td class="formItem">
                             <xsl:value-of select="v3:name"/>
-                            <xsl:for-each select="v3:id/@extension">
+                            <xsl:for-each select="v3:identifier/v3:value/@value">
                                 <xsl:text> (</xsl:text>
                                 <xsl:value-of select="."/>
                                 <xsl:text>)</xsl:text>
                             </xsl:for-each>
                         </td>
                         <td class="formItem">		
-                            <xsl:apply-templates mode="format" select="v3:addr"/>
+                            <xsl:apply-templates mode="format" select="v3:address"/>
                         </td>
                         <td class="formItem">
-                            <xsl:value-of select=" substring-after(v3:telecom/@value[starts-with(.,'tel:')][1], 'tel:')"/>
-                            <xsl:for-each select="v3:telecom/@value[starts-with(.,'fax:')]">
+                            <xsl:value-of select="v3:telecom[v3:system/@value='phone'][1]/v3:value/@value"/>
+                            <xsl:for-each select="v3:telecom[v3:system/@value='fax']">
                                 <br/>
                                 <xsl:text>FAX: </xsl:text>
-                                <xsl:value-of select="substring-after(., 'fax:')"/>
+                                <xsl:value-of select="v3:value/@value"/>
                             </xsl:for-each>
                         </td>
                         <td class="formItem">
-                            <xsl:value-of select=" substring-after(v3:telecom/@value[starts-with(.,'mailto:')][1], 'mailto:')"/>
+                            <xsl:value-of select="v3:telecom[v3:system/@value='email'][1]/v3:value/@value"/>
                         </td>
                     </tr>
                 </xsl:for-each>
