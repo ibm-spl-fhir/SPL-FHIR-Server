@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="http://localhost:8000/fhir-common.xsl" type="text/xsl"?>
+<Bundle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://hl7.org/fhir">
+    <id value="d5c29c99-caf7-4ea9-9c34-5f302abcf2fa"/>
+    <meta>
+        <lastUpdated value="2019-07-16T18:48:29.015+00:00"/>
+    </meta>
+    <type value="searchset"/>
+    <total value="7"/>
+    <link>
+        <relation value="self"/>
+        <url value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/Organization/$retrieve-establishment?id=4952"/>
+    </link>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/Organization/4952"/>
+        <resource>
+            <Organization xmlns="http://hl7.org/fhir">
+                <id value="4952"/>
+                <meta>
+                    <lastUpdated value="2019-03-05T02:50:56.053Z"/>
+                    <profile value="http://hl7.org/fhir/StructureDefinition/Organization"/>
+                </meta>
+                <identifier>
+                    <system value="urn:oid:1.3.6.1.4.1.519.1"/>
+                    <value value="Establishment-1-DUNS"/>
+                </identifier>
+                <identifier>
+                    <system value="urn:oid:2.16.840.1.113883.4.82"/>
+                    <value value="Establishment-1-FEI"/>
+                </identifier>
+                <active value="true"/>
+                <name value="Establishment Organization"/>
+                <address>
+                    <text value="13 Boring St, Erewhon, 5555 (New Zealand)"/>
+                    <line value="13 Boring St"/>
+                    <city value="Erewhon"/>
+                    <postalCode value="5555"/>
+                    <country value="New Zealand"/>
+                </address>
+                <contact>
+                    <name>
+                        <use value="usual"/>
+                        <text value="prefix given family"/>
+                        <family value="%family%"/>
+                        <given value="%given%"/>
+                        <prefix value="%prefix%"/>
+                    </name>
+                    <telecom>
+                        <system value="phone"/>
+                        <value value="%555-555-5555%"/>
+                        <use value="work"/>
+                    </telecom>
+                    <telecom>
+                        <system value="email"/>
+                        <value value="%joe@anywhere.com%"/>
+                        <use value="work"/>
+                    </telecom>
+                    <address>
+                        <text value="13 Boring St, Erewhon, 5555 (New Zealand)"/>
+                        <line value="13 Boring St"/>
+                        <city value="Erewhon"/>
+                        <postalCode value="5555"/>
+                        <country value="New Zealand"/>
+                    </address>
+                </contact>
+            </Organization>
+        </resource>        
+    </entry>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/Composition/4953"/>
+        <resource>
+            <Composition xmlns="http://hl7.org/fhir">
+                <id value="4953"/>
+                <meta>
+                    <versionId value="1"/>
+                    <lastUpdated value="2019-05-20T16:15:38.001+00:00"/>
+                </meta>
+                <contained>
+                    <Organization xmlns="http://hl7.org/fhir">
+                        <id value="registrant"/>
+                        <identifier>
+                            <system value="urn:oid:1.3.6.1.4.1.519.1"/>
+                            <value value="Registrant-DUNS"/>
+                        </identifier>
+                        <active value="true"/>
+                        <name value="Registrant Organization"/>
+                        <contact>
+                            <name>
+                                <use value="usual"/>
+                                <text value="prefix given family"/>
+                                <family value="%family%"/>
+                                <given value="%given%"/>
+                                <prefix value="%prefix%"/>
+                            </name>
+                            <telecom>
+                                <system value="phone"/>
+                                <value value="%555-555-5555%"/>
+                                <use value="work"/>
+                            </telecom>
+                            <telecom>
+                                <system value="email"/>
+                                <value value="%joe@anywhere.com%"/>
+                                <use value="work"/>
+                            </telecom>
+                            <address>
+                                <text value="13 Boring St, Erewhon, 5555 (New Zealand)"/>
+                                <line value="13 Boring St"/>
+                                <city value="Erewhon"/>
+                                <postalCode value="5555"/>
+                                <country value="New Zealand"/>
+                            </address>
+                        </contact>
+                    </Organization>
+                </contained>
+                <extension>
+                    <extension url="setID">
+                        <valueIdentifier>
+                            <system value="urn:ietf:rfc:3986"/>
+                            <value value="urn:uuid:d1af4513-b156-46e0-b34d-c26a9c8453d1"/>
+                        </valueIdentifier>
+                    </extension>
+                    <extension url="versionNumber">
+                        <valueString value="1"/>
+                    </extension>
+                </extension>
+                <identifier>
+                    <system value="urn:ietf:rfc:3986"/>
+                    <value value="urn:uuid:eeb60e3a-6186-41ad-b3f1-c550f6e3470e"/>
+                </identifier>
+                <type>
+                    <coding>
+                        <system value="http://loinc.org"/>
+                        <code value="51725-0"/>
+                        <display value="ESTABLISHMENT REGISTRATION"/>
+                    </coding>
+                </type>
+                <date value="2019-03-04"/>
+                <author>
+                    <reference value="#registrant"/>
+                </author>
+                <section>
+                    <title value="Registered Establishment"/>
+                    <entry>
+                        <reference value="Organization/4952"/>
+                    </entry>
+                </section>
+            </Composition>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/OrganizationAffiliation/4956"/>
+        <resource>
+            <OrganizationAffiliation xmlns="http://hl7.org/fhir">
+                <id value="4956"/>
+                <meta>
+                    <versionId value="1"/>
+                    <lastUpdated value="2019-05-20T16:15:38.453+00:00"/>
+                </meta>
+                <organization>
+                    <reference value="Organization/4952"/>
+                </organization>
+                <participatingOrganization>
+                    <reference value="Organization/4955"/>
+                </participatingOrganization>
+                <code>
+                    <text value="USAGENT"/>
+                </code>
+            </OrganizationAffiliation>
+        </resource>
+        <search>
+            <mode value="match"/>
+        </search>
+        <response>
+            <status value="201 Created"/>
+            <etag value="W/&quot;1&quot;"/>
+        </response>
+    </entry>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/OrganizationAffiliation/4958"/>
+        <resource>
+            <OrganizationAffiliation xmlns="http://hl7.org/fhir">
+                <id value="4958"/>
+                <meta>
+                    <versionId value="1"/>
+                    <lastUpdated value="2019-05-20T16:15:38.632+00:00"/>
+                </meta>
+                <organization>
+                    <reference value="Organization/4952"/>
+                </organization>
+                <participatingOrganization>
+                    <reference value="Organization/4957"/>
+                </participatingOrganization>
+                <code>
+                    <text value="IMPORTER"/>
+                </code>
+            </OrganizationAffiliation>
+        </resource>
+        <search>
+            <mode value="match"/>
+        </search>
+        <response>
+            <status value="201 Created"/>
+            <etag value="W/&quot;1&quot;"/>
+        </response>
+    </entry>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/Organization/4955"/>
+        <resource>
+            <Organization xmlns="http://hl7.org/fhir">
+                <id value="4955"/>
+                <meta>
+                    <lastUpdated value="2019-03-05T02:50:56.053Z"/>
+                    <profile value="http://hl7.org/fhir/StructureDefinition/Organization"/>
+                </meta>
+                <identifier>
+                    <system value="urn:oid:1.3.6.1.4.1.519.1"/>
+                    <value value="Establishment-1-USAgent-DUNS"/>
+                </identifier>
+                <active value="true"/>
+                <name value="Establishment US Agent"/>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="%555-555-5555%"/>
+                    <use value="work"/>
+                </telecom>
+                <telecom>
+                    <system value="email"/>
+                    <value value="%joe@anywhere.com%"/>
+                    <use value="work"/>
+                </telecom>
+            </Organization>
+        </resource>
+    </entry>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/Organization/4957"/>
+        <resource>
+            <Organization xmlns="http://hl7.org/fhir">
+                <id value="4957"/>
+                <meta>
+                    <lastUpdated value="2019-03-05T02:50:56.053Z"/>
+                    <profile value="http://hl7.org/fhir/StructureDefinition/Organization"/>
+                </meta>
+                <identifier>
+                    <system value="urn:oid:1.3.6.1.4.1.519.1"/>
+                    <value value="Establishment-1-Importer-1-DUNS"/>
+                </identifier>
+                <active value="true"/>
+                <name value="Establishment Importer"/>
+                <telecom>
+                    <system value="phone"/>
+                    <value value="%555-555-5555%"/>
+                    <use value="work"/>
+                </telecom>
+                <telecom>
+                    <system value="email"/>
+                    <value value="%joe@anywhere.com%"/>
+                    <use value="work"/>
+                </telecom>
+            </Organization>
+        </resource>       
+    </entry>
+    <entry>
+        <fullUrl value="http://establishmentregistration-env.2xusmisrbq.us-west-2.elasticbeanstalk.com/fhir/HealthcareService/4954"/>
+        <resource>
+            <HealthcareService>
+                <id value="4954"/>
+                <active value="true"/>
+                <providedBy>
+                    <reference value="Organization/4952"/>
+                </providedBy>
+                <type>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.3.26.1.1"/>
+                        <code value="C112113"/>
+                        <display value="Human drug compounding outsourcing facility"/>
+                    </coding>
+                </type>
+                <specialty>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.3.26.1.1"/>
+                        <code value="C112087"/>
+                        <display value="Intent to compound 506e (drug shortage) drugs"/>
+                    </coding>
+                </specialty>
+                <specialty>
+                    <coding>
+                        <system value="urn:oid:2.16.840.1.113883.3.26.1.1"/>
+                        <code value="C112093"/>
+                        <display value="Not compounding from bulk ingredients"/>
+                    </coding>
+                </specialty>
+            </HealthcareService>
+        </resource>
+    </entry>
+</Bundle>
+
