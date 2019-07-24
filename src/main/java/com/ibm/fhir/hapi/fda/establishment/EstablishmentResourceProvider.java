@@ -290,8 +290,8 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 		//Create the Bundle Entry List which will be added to the Aggregate Bundle
 		ArrayList<BundleEntryComponent> entryList = new ArrayList<BundleEntryComponent>();
 
-		/*
 		String serverAddress = HapiProperties.getServerAddress();
+		/*
 		System.out.println(" HapiProperties.getServerAddress() " + HapiProperties.getServerAddress());
 		System.out.println(" establishmentID.getQueryParameterQualifier() " + establishmentID.getQueryParameterQualifier());
 		System.out.println(" establishmentID.getSystem() " + establishmentID.getSystem());
@@ -332,7 +332,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 				 strEstablishmentId = entry.getIdElement().getIdPart();
 				 BundleEntryComponent myBundleEntryComponent = new BundleEntryComponent();
 				 myBundleEntryComponent.setResource(o);
-				 //myBundleEntryComponent.setFullUrl(FhirContext.forR4() + o.getId());
+				 myBundleEntryComponent.setFullUrl(serverAddress + "Organization" + "/" + strEstablishmentId);
 
 				 entryList.add(myBundleEntryComponent);
 
@@ -356,7 +356,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 				 intSizeAggrBundle = intSizeAggrBundle + 1;
 				 BundleEntryComponent myBundleEntryComponent = new BundleEntryComponent();
 				 myBundleEntryComponent.setResource(o);
-				 //myBundleEntryComponent.setFullUrl(FhirContext.forR4() + o.getId());
+				 myBundleEntryComponent.setFullUrl(serverAddress + "Composition" + "/" + entry.getIdElement().getIdPart());
 
 				 entryList.add(myBundleEntryComponent);
 
@@ -379,7 +379,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 				 intSizeAggrBundle = intSizeAggrBundle + 1;
 				 BundleEntryComponent myBundleEntryComponent = new BundleEntryComponent();
 				 myBundleEntryComponent.setResource(o);
-				 //myBundleEntryComponent.setFullUrl(FhirContext.forR4() + o.getId());
+				 myBundleEntryComponent.setFullUrl(serverAddress + "HealthcareService" + "/" + entry.getIdElement().getIdPart());
 
 				 entryList.add(myBundleEntryComponent);
 
@@ -405,7 +405,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 				 intSizeAggrBundle = intSizeAggrBundle + 1;
 				 BundleEntryComponent myBundleEntryComponent = new BundleEntryComponent();
 				 myBundleEntryComponent.setResource(o);
-				 //myBundleEntryComponent.setFullUrl(FhirContext.forR4() + o.getId());
+				 myBundleEntryComponent.setFullUrl(serverAddress + "OrganizationAffiliation" + "/" + entry.getIdElement().getIdPart());
 
 				 entryList.add(myBundleEntryComponent);
 
@@ -431,6 +431,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 				 intSizeAggrBundle = intSizeAggrBundle + 1;
 				 BundleEntryComponent myBundleEntryComponent = new BundleEntryComponent();
 				 myBundleEntryComponent.setResource(o);
+				 myBundleEntryComponent.setFullUrl(serverAddress + "Organization" + "/" + entry);
 
 				 entryList.add(myBundleEntryComponent);
 
@@ -447,8 +448,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 		aggrMeta.setLastUpdated(new Date());
 		aggrBundle.setMeta(aggrMeta);
 
-		//TODO Set the Response Tag in the Response Bundle
-
+		//Being prototype work, setting of the Response Tag in the Response Bundle is not required
 
 	    return aggrBundle;
     }
