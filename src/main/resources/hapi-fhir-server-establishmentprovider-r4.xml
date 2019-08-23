@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	default-autowire="no" default-lazy-init="false"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+	"
+	>
+
+<!-- 
+	<bean id="myFhirContextR4" class="ca.uhn.fhir.context.FhirContext" factory-method="forR4"/>
+	<bean id="myCompositionDao" 
+		class="ca.uhn.fhir.jpa.dao.FhirResourceDaoCompositionR4">
+		<property name="resourceType" value="org.hl7.fhir.r4.model.Composition"/>
+		<property name="context" ref="myFhirContextR4"/>
+	</bean>
+	<bean id="myServiceDao" 
+		class="ca.uhn.fhir.jpa.dao.FhirResourceDaoR4">
+		<property name="resourceType" value="org.hl7.fhir.r4.model.HealthcareService"/>
+		<property name="context" ref="myFhirContextR4"/>
+	</bean>
+	<bean id="myOrganizationDao" 
+		class="ca.uhn.fhir.jpa.dao.FhirResourceDaoR4">
+		<property name="resourceType" value="org.hl7.fhir.r4.model.Organization"/>
+		<property name="context" ref="myFhirContextR4"/>
+	</bean>
+	<bean id="myAffiliationDao" 
+		class="ca.uhn.fhir.jpa.dao.FhirResourceDaoR4">
+		<property name="resourceType" value="org.hl7.fhir.r4.model.OrganizationAffiliation"/>
+		<property name="context" ref="myFhirContextR4"/>
+	</bean>
+-->
+    <bean id="myEstablishmentProvider" class="com.ibm.fhir.hapi.fda.establishment.EstablishmentResourceProvider">
+            <property name="compositionDao" ref="myCompositionDao"/>
+            <property name="serviceDao" ref="myServiceDao"/>
+            <property name="organizationDao" ref="myOrganizationDao"/>
+            <property name="affiliationDao" ref="myAffiliationDao"/>
+    </bean>
+</beans>
