@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ValueSet xmlns="http://hl7.org/fhir">
+  <id value="BusinessOperation"/>
+  <text>
+    <status value="generated"/><div xmlns="http://www.w3.org/1999/xhtml"><h2>BusinessOperation</h2><div><p>The set of operations that an organization can do.</p>
+</div><p>This value set includes codes from the following code systems:</p><ul><li>Include these codes as defined in <a href="http://ncimeta.nci.nih.gov"><code>http://ncimeta.nci.nih.gov</code></a><table class="none"><tr><td style="white-space:nowrap"><b>Code</b></td><td><b>Display</b></td></tr><tr><td>C25391</td><td>ANALYSIS</td><td/></tr><tr><td>C82401</td><td>API MANUFACTURE</td><td/></tr><tr><td>C112113</td><td>HUMAN DRUG COMPOUNDING OUTSOURCING FACILITY</td><td/></tr><tr><td>C84732</td><td>LABEL</td><td/></tr><tr><td>C43360</td><td>MANUFACTURE</td><td/></tr><tr><td>C84635</td><td>MEDICATED ANIMAL FEED MANUFACTURE</td><td/></tr><tr><td>C122061</td><td>OUTSOURCING ANIMAL DRUG COMPOUNDING</td><td/></tr><tr><td>C84731</td><td>PACK</td><td/></tr><tr><td>C84386</td><td>PARTICLE SIZE REDUCTION</td><td/></tr><tr><td>C91403</td><td>POSITRON EMISSION TOMOGRPHY DRUG PRODUCTION</td><td/></tr><tr><td>C73607</td><td>RELABEL</td><td/></tr><tr><td>C73606</td><td>REPACK</td><td/></tr><tr><td>C70827</td><td>SALVAGE</td><td/></tr><tr><td>C84382</td><td>STERILIZE</td><td/></tr><tr><td>C125710</td><td>TRANSFILL</td><td/></tr></table></li></ul></div>
+  </text>
+  <url value="http://fhir.fda.gov/spl-on-fhir/ValueSet/BusinessOperation"/>
+  <version value="0.0.0"/>
+  <name value="BusinessOperation"/>
+  <status value="draft"/>
+  <date value="2018-03-13T09:16:34-06:00"/>
+  <contact>
+    <telecom>
+      <system value="url"/>
+    </telecom>
+    <telecom>
+      <system value="email"/>
+    </telecom>
+  </contact>
+  <description value="The set of operations that an organization can do."/>
+  <jurisdiction>
+    <coding>
+      <system value="urn:iso:std:iso:3166"/>
+      <code value="US"/>
+    </coding>
+  </jurisdiction>
+  <immutable value="true"/>
+  <compose>
+    <include>
+      <system value="http://ncimeta.nci.nih.gov"/>
+      <concept>
+        <code value="C25391"/>
+        <display value="ANALYSIS"/>
+      </concept>
+      <concept>
+        <code value="C82401"/>
+        <display value="API MANUFACTURE"/>
+      </concept>
+      <concept>
+        <code value="C112113"/>
+        <display value="HUMAN DRUG COMPOUNDING OUTSOURCING FACILITY"/>
+      </concept>
+      <concept>
+        <code value="C84732"/>
+        <display value="LABEL"/>
+      </concept>
+      <concept>
+        <code value="C43360"/>
+        <display value="MANUFACTURE"/>
+      </concept>
+      <concept>
+        <code value="C84635"/>
+        <display value="MEDICATED ANIMAL FEED MANUFACTURE"/>
+      </concept>
+      <concept>
+        <code value="C122061"/>
+        <display value="OUTSOURCING ANIMAL DRUG COMPOUNDING"/>
+      </concept>
+      <concept>
+        <code value="C84731"/>
+        <display value="PACK"/>
+      </concept>
+      <concept>
+        <code value="C84386"/>
+        <display value="PARTICLE SIZE REDUCTION"/>
+      </concept>
+      <concept>
+        <code value="C91403"/>
+        <display value="POSITRON EMISSION TOMOGRPHY DRUG PRODUCTION"/>
+      </concept>
+      <concept>
+        <code value="C73607"/>
+        <display value="RELABEL"/>
+      </concept>
+      <concept>
+        <code value="C73606"/>
+        <display value="REPACK"/>
+      </concept>
+      <concept>
+        <code value="C70827"/>
+        <display value="SALVAGE"/>
+      </concept>
+      <concept>
+        <code value="C84382"/>
+        <display value="STERILIZE"/>
+      </concept>
+      <concept>
+        <code value="C125710"/>
+        <display value="TRANSFILL"/>
+      </concept>
+    </include>
+  </compose>
+</ValueSet>
