@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:transform version="2.0" 
            xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-             xmlns="http://hl7.org/fhir" 
+             xmlns="http://hl7.org/fhir" xmlns:v3="urn:hl7-org:v3"
              xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	
 	<xsl:output method="xml"/>
@@ -40,7 +40,7 @@
 			<xsl:element name="parameter">
 				<xsl:element name="name">
 				   <xsl:attribute name="value">
-				     <xsl:value-of select="//document/id/name()" />
+				     <xsl:value-of select="//v3:document/v3:id/name()" />
 				   </xsl:attribute>					
 				</xsl:element>				
 				<xsl:element name="valueIdentifier">				
@@ -51,7 +51,7 @@
 					</xsl:element>					
 					<xsl:element name="value">
 					   <xsl:attribute name="value">
-					     <xsl:value-of select="concat('urn:uuid:', document/id/@root)" />
+					     <xsl:value-of select="concat('urn:uuid:', v3:document/v3:id/@root)" />
 					   </xsl:attribute>						
 					</xsl:element>					
 				</xsl:element>			
@@ -65,7 +65,7 @@
 		    	</xsl:element>
 		    	<xsl:element name="valueString">
 		    		<xsl:attribute name="value">
-		    	     <xsl:value-of select="document/versionNumber/@value" />
+		    	     <xsl:value-of select="v3:document/v3:versionNumber/@value" />
 		    	   </xsl:attribute>
 		    	</xsl:element>		    
 		    </xsl:element>
@@ -84,7 +84,7 @@
 					</xsl:element>					
 					<xsl:element name="value">
 					   <xsl:attribute name="value">
-					     <xsl:value-of select="concat('urn:uuid:', document/setId/@root)" />
+					     <xsl:value-of select="concat('urn:uuid:', v3:document/v3:setId/@root)" />
 					   </xsl:attribute>						
 					</xsl:element>					
 				</xsl:element>	    
@@ -98,8 +98,8 @@
 		    	</xsl:element>
 			    	<xsl:element name="valueDateTime">					 
 					   <xsl:attribute name="value">
-					     <xsl:variable name="in" select="document/effectiveTime/@value" />
-					     <xsl:variable name="effDate" select="xs:date(concat(
+					     <xsl:variable name="in" select="v3:document/v3:effectiveTime/@value" />
+					      <xsl:variable name="effDate" select="xs:date(concat(
 					     								substring($in,1,4),'-',
             											substring($in,5,2),'-',
             											substring($in,7,2)))"/>
@@ -111,28 +111,28 @@
 			<!-- Start the formatting of the mandatory Registration Organization
 			     There can only be 1 such organization -->
 			
-			<xsl:apply-templates select="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization">
+			<xsl:apply-templates select="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization">
 			
 			</xsl:apply-templates>
 				
 			<!-- Start the formatting of the mandatory Establishment Organizations. 
 			     There can be minimum of 1 and maximum of any number of such organizations -->
 			
-			<xsl:apply-templates select="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization/assignedEntity">
+			<xsl:apply-templates select="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity">
 			
 			</xsl:apply-templates>
 				
 			<!-- Start the formatting of the Optional Importer and US Agent Organizations. 
 			     For every establishment organization, there can be maximum of 1 US Agent and any number of Importer organizations  -->
 			
-			<xsl:apply-templates select="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization/assignedEntity/assignedOrganization/assignedEntity">
+			<xsl:apply-templates select="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity">
 			
 			</xsl:apply-templates>
 			
 			<!-- Start the formatting of the Business Operations (Health care service). 
 			     For every establishment organization, there will be minimum of 1 and maximum of any number of Business operations  -->
 			
-			<xsl:apply-templates select="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization/assignedEntity/performance">
+			<xsl:apply-templates select="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity/v3:performance">
 			
 			</xsl:apply-templates>
 		
@@ -144,7 +144,7 @@
 	
 	<!-- Start of Template to format the Registration Organization -->
 
-	<xsl:template name="registrant-template" match="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization">
+	<xsl:template name="registrant-template" match="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization">
 
 			<xsl:element name="parameter">
 				<xsl:element name="name">
@@ -177,12 +177,12 @@
 		    			<xsl:element name="identifier">				
 							<xsl:element name="system">
 					   			<xsl:attribute name="value">
-					   				<xsl:value-of select="concat('urn:oid:', ./id/@root)" />	     			
+					   				<xsl:value-of select="concat('urn:oid:', ./v3:id/@root)" />	     			
 					   			</xsl:attribute>						 
 							</xsl:element>					
 							<xsl:element name="value">
 					   			<xsl:attribute name="value">
-					     			<xsl:value-of select="./id/@extension" />
+					     			<xsl:value-of select="./v3:id/@extension" />
 					   			</xsl:attribute>						
 							</xsl:element>					
 						</xsl:element>	
@@ -195,7 +195,7 @@
 						
 						<xsl:element name="name">
 					   		<xsl:attribute name="value">
-					   			<xsl:value-of select="./name"/>					   			 			
+					   			<xsl:value-of select="./v3:name"/>					   			 			
 					   		</xsl:attribute>						 
 						</xsl:element>	
 						
@@ -208,7 +208,7 @@
 								</xsl:element>
 								
 								<!-- Parse the name and extract Given and family names -->
-								<xsl:variable name="fullName" select="normalize-space(./contactParty/contactPerson/name)"></xsl:variable>
+								<xsl:variable name="fullName" select="normalize-space(./v3:contactParty/v3:contactPerson/v3:name)"></xsl:variable>
 								<xsl:variable name="givenName" select="substring-before($fullName,' ')"></xsl:variable>
 								<xsl:variable name="familyName" select="substring-after($fullName,' ')"></xsl:variable>
 								<xsl:element name="family">
@@ -228,14 +228,14 @@
 								</xsl:element>
 								<xsl:element name="text">
 									<xsl:attribute name="value">
-					   					<xsl:value-of select="./contactParty/contactPerson/name" />  			
+					   					<xsl:value-of select="./v3:contactParty/v3:contactPerson/v3:name" />  			
 					   				</xsl:attribute>
 								</xsl:element>
 							
 							</xsl:element>
 							
 							<!-- Parse the input XML to extract the Telephone and Email IDs -->
-							<xsl:for-each select="./contactParty/telecom">
+							<xsl:for-each select="./v3:contactParty/v3:telecom">
 							
 							    <xsl:variable name="contactVar" select="@value"></xsl:variable>							    
 							   
@@ -284,26 +284,26 @@
 							</xsl:for-each>
 							
 							<!-- Parse and extract the Address details. If country is USA use State otherwise skip it -->
-							<xsl:variable name="stateVar" select="./contactParty/addr/country"></xsl:variable>
+							<xsl:variable name="stateVar" select="./v3:contactParty/v3:addr/v3:country"></xsl:variable>
 							<xsl:element name="address">								
 								<xsl:element name="text">								    
 									<xsl:choose>
-										<xsl:when test="starts-with($stateVar,'USA')">											 
+										<xsl:when test="starts-with($stateVar,'USA') or starts-with($stateVar,'CHE')">											 
 											<xsl:attribute name="value">
-												<xsl:value-of select="concat(./contactParty/addr/streetAddressLine,', ',
-																	./contactParty/addr/city,', ',
-																	./contactParty/addr/state,', ',
-																	./contactParty/addr/postalCode,', ',
-																	./contactParty/addr/country )">
+												<xsl:value-of select="concat(./v3:contactParty/v3:addr/v3:streetAddressLine,', ',
+																	./v3:contactParty/v3:addr/v3:city,', ',
+																	./v3:contactParty/v3:addr/v3:state,', ',
+																	./v3:contactParty/v3:addr/v3:postalCode,', ',
+																	./v3:contactParty/v3:addr/v3:country )">
 												</xsl:value-of>				   							
 		   									</xsl:attribute>									 
 										</xsl:when>										 
 										<xsl:otherwise>
 											<xsl:attribute name="value">
-												<xsl:value-of select="concat(./contactParty/addr/streetAddressLine,', ',
-																	./contactParty/addr/city,', ',
-																	./contactParty/addr/postalCode,', ',
-																	./contactParty/addr/country )">
+												<xsl:value-of select="concat(./v3:contactParty/v3:addr/v3:streetAddressLine,', ',
+																	./v3:contactParty/v3:addr/v3:city,', ',
+																	./v3:contactParty/v3:addr/v3:postalCode,', ',
+																	./v3:contactParty/v3:addr/v3:country )">
 												</xsl:value-of>				   							
 		   									</xsl:attribute>										
 										</xsl:otherwise>									
@@ -311,19 +311,19 @@
 								</xsl:element>
 								<xsl:element name="line">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/streetAddressLine" />					   							
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:streetAddressLine" />					   							
 			   						</xsl:attribute>
 								</xsl:element>
 								<xsl:element name="city">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/city" />					   							
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:city" />					   							
 			   						</xsl:attribute>
 								</xsl:element>
 								<xsl:choose>
-									<xsl:when test="starts-with($stateVar,'USA')">
+									<xsl:when test="starts-with($stateVar,'USA') or starts-with($stateVar,'CHE')">
 										<xsl:element name="state">
 											<xsl:attribute name="value">
-			   									<xsl:value-of select="./contactParty/addr/state" />		 
+			   									<xsl:value-of select="./v3:contactParty/v3:addr/v3:state" />		 
 			   								</xsl:attribute>
 										</xsl:element>
 									</xsl:when>							
@@ -335,7 +335,7 @@
 								</xsl:element>
 								<xsl:element name="country">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/country" />		 
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:country" />		 
 			   						</xsl:attribute>
 								</xsl:element>					
 					        						
@@ -354,9 +354,9 @@
 
 	<!-- Start of Template to format the Establishment Organization -->
 	
-	<xsl:template name="establishment-template" match="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization/assignedEntity">
+	<xsl:template name="establishment-template" match="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity">
 
-		<xsl:for-each select="./assignedOrganization">
+		<xsl:for-each select="./v3:assignedOrganization">
 		
 			<xsl:element name="parameter">
 				<xsl:element name="name">
@@ -388,7 +388,7 @@
 		    			
 						<!-- Parse and extract the identifiers -->
 						
-						<xsl:for-each select="./id">
+						<xsl:for-each select="./v3:id">
 						
 							<xsl:variable name="identifierVar" select="@extension"></xsl:variable>
 							<xsl:if test="starts-with($identifierVar,'00000000')">
@@ -434,31 +434,31 @@
 						
 						<xsl:element name="name">
 					   		<xsl:attribute name="value">
-					   			<xsl:value-of select="./name"/>			
+					   			<xsl:value-of select="./v3:name"/>			
 					   		</xsl:attribute>						 
 						</xsl:element>	
 						
 						<!-- Parse and extract Address of Establishment organization. If it is USA then consider state -->
-						<xsl:variable name="stateVar" select="./addr/country"></xsl:variable>
+						<xsl:variable name="stateVar" select="./v3:addr/v3:country"></xsl:variable>
 						<xsl:element name="address">								
 							<xsl:element name="text">								
 								<xsl:choose>
-									<xsl:when test="starts-with($stateVar,'USA')">											 
+									<xsl:when test="starts-with($stateVar,'USA') or starts-with($stateVar,'CHE')">											 
 										<xsl:attribute name="value">
-											<xsl:value-of select="concat(./addr/streetAddressLine,', ',
-																./addr/city,', ',
-																./addr/state,', ',
-																./addr/postalCode,', ',
-																./addr/country )">
+											<xsl:value-of select="concat(./v3:addr/v3:streetAddressLine,', ',
+																./v3:addr/v3:city,', ',
+																./v3:addr/v3:state,', ',
+																./v3:addr/v3:postalCode,', ',
+																./v3:addr/v3:country )">
 											</xsl:value-of>				   							
 	   									</xsl:attribute>									 
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:attribute name="value">
-											<xsl:value-of select="concat(./addr/streetAddressLine,', ',
-																./addr/city,', ',
-																./addr/postalCode,', ',
-																./addr/country )">
+											<xsl:value-of select="concat(./v3:addr/v3:streetAddressLine,', ',
+																./v3:addr/v3:city,', ',
+																./v3:addr/v3:postalCode,', ',
+																./v3:addr/v3:country )">
 											</xsl:value-of>				   							
 	   									</xsl:attribute>										
 									</xsl:otherwise>									
@@ -466,31 +466,31 @@
 							</xsl:element>
 							<xsl:element name="line">
 								<xsl:attribute name="value">
-		   							<xsl:value-of select="./addr/streetAddressLine" />					   							
+		   							<xsl:value-of select="./v3:addr/v3:streetAddressLine" />					   							
 		   						</xsl:attribute>
 							</xsl:element>
 							<xsl:element name="city">
 								<xsl:attribute name="value">
-		   							<xsl:value-of select="./addr/city" />					   							
+		   							<xsl:value-of select="./v3:addr/v3:city" />					   							
 		   						</xsl:attribute>
 							</xsl:element>
 							<xsl:choose>
-									<xsl:when test="starts-with($stateVar,'USA')">
+									<xsl:when test="starts-with($stateVar,'USA') or starts-with($stateVar,'CHE')">
 										<xsl:element name="state">
 											<xsl:attribute name="value">
-			   									<xsl:value-of select="./addr/state" />		 
+			   									<xsl:value-of select="./v3:addr/v3:state" />		 
 			   								</xsl:attribute>
 										</xsl:element>
 									</xsl:when>							
 							</xsl:choose>		
 							<xsl:element name="postalCode">
 								<xsl:attribute name="value">
-		   							<xsl:value-of select="./addr/postalCode" />		 
+		   							<xsl:value-of select="./v3:addr/v3:postalCode" />		 
 		   						</xsl:attribute>
 							</xsl:element>
 							<xsl:element name="country">
 								<xsl:attribute name="value">
-		   							<xsl:value-of select="./addr/country" />		 
+		   							<xsl:value-of select="./v3:addr/v3:country" />		 
 		   						</xsl:attribute>
 							</xsl:element>					
 				        						
@@ -507,7 +507,7 @@
 								</xsl:element>
 		
 								<!-- Parse the name and extract Given and family names -->
-								<xsl:variable name="fullName" select="normalize-space(./contactParty/contactPerson/name)"></xsl:variable>
+								<xsl:variable name="fullName" select="normalize-space(./v3:contactParty/v3:contactPerson/v3:name)"></xsl:variable>
 								<xsl:variable name="givenName" select="substring-before($fullName,' ')"></xsl:variable>
 								<xsl:variable name="familyName" select="substring-after($fullName,' ')"></xsl:variable>
 								<xsl:element name="family">
@@ -527,14 +527,14 @@
 								</xsl:element>
 								<xsl:element name="text">
 									<xsl:attribute name="value">
-					   					<xsl:value-of select="./contactParty/contactPerson/name" />    			
+					   					<xsl:value-of select="./v3:contactParty/v3:contactPerson/v3:name" />    			
 					   				</xsl:attribute>
 								</xsl:element>
 							
 							</xsl:element>
 							
 							<!-- Parse the input XML to extract the Telephone and Email IDs -->
-							<xsl:for-each select="./contactParty/telecom">
+							<xsl:for-each select="./v3:contactParty/v3:telecom">
 							
 							    <xsl:variable name="contactVar" select="@value"></xsl:variable>							    
 							   
@@ -583,26 +583,26 @@
 							</xsl:for-each>
 							
 							<!-- Parse and extract the Address details. if it is USA then consider state -->
-							<xsl:variable name="stateVar" select="./contactParty/addr/country"></xsl:variable>
+							<xsl:variable name="stateVar" select="./v3:contactParty/v3:addr/v3:country"></xsl:variable>
 							<xsl:element name="address">								
 								<xsl:element name="text">									
 									<xsl:choose>
-										<xsl:when test="starts-with($stateVar,'USA')">											 
+										<xsl:when test="starts-with($stateVar,'USA') or starts-with($stateVar,'CHE')">											 
 											<xsl:attribute name="value">
-												<xsl:value-of select="concat(./contactParty/addr/streetAddressLine,', ',
-																	./contactParty/addr/city,', ',
-																	./contactParty/addr/state,', ',
-																	./contactParty/addr/postalCode,', ',
-																	./contactParty/addr/country )">
+												<xsl:value-of select="concat(./v3:contactParty/v3:addr/v3:streetAddressLine,', ',
+																	./v3:contactParty/v3:addr/v3:city,', ',
+																	./v3:contactParty/v3:addr/v3:state,', ',
+																	./v3:contactParty/v3:addr/v3:postalCode,', ',
+																	./v3:contactParty/v3:addr/v3:country )">
 												</xsl:value-of>				   							
 		   									</xsl:attribute>									 
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:attribute name="value">
-												<xsl:value-of select="concat(./contactParty/addr/streetAddressLine,', ',
-																	./contactParty/addr/city,', ',
-																	./contactParty/addr/postalCode,', ',
-																	./contactParty/addr/country )">
+												<xsl:value-of select="concat(./v3:contactParty/v3:addr/v3:streetAddressLine,', ',
+																	./v3:contactParty/v3:addr/v3:city,', ',
+																	./v3:contactParty/v3:addr/v3:postalCode,', ',
+																	./v3:contactParty/v3:addr/v3:country )">
 												</xsl:value-of>				   							
 		   									</xsl:attribute>										
 										</xsl:otherwise>									
@@ -610,31 +610,31 @@
 								</xsl:element>
 								<xsl:element name="line">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/streetAddressLine" />					   							
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:streetAddressLine" />					   							
 			   						</xsl:attribute>
 								</xsl:element>
 								<xsl:element name="city">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/city" />					   							
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:city" />					   							
 			   						</xsl:attribute>
 								</xsl:element>
 								<xsl:choose>
-									<xsl:when test="starts-with($stateVar,'USA')">
+									<xsl:when test="starts-with($stateVar,'USA') or starts-with($stateVar,'CHE')">
 										<xsl:element name="state">
 											<xsl:attribute name="value">
-			   									<xsl:value-of select="./contactParty/addr/state" />		 
+			   									<xsl:value-of select="./v3:contactParty/v3:addr/v3:state" />		 
 			   								</xsl:attribute>
 										</xsl:element>
 									</xsl:when>						
 								</xsl:choose>		
 								<xsl:element name="postalCode">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/postalCode" />		 
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:postalCode" />		 
 			   						</xsl:attribute>
 								</xsl:element>
 								<xsl:element name="country">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/country" />		 
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:country" />		 
 			   						</xsl:attribute>
 								</xsl:element>					
 					        						
@@ -656,9 +656,9 @@
 	
 	<!-- Start of Template to format the US Agent / Importer Organizations -->
 	
-	<xsl:template name="usAgent-Importer-template" match="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization/assignedEntity/assignedOrganization/assignedEntity">
+	<xsl:template name="usAgent-Importer-template" match="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity">
 
-		<xsl:for-each select="./performance/actDefinition/code">
+		<xsl:for-each select="./v3:performance/v3:actDefinition/v3:code">
 		
 			<xsl:variable name="orgType" select="@code"></xsl:variable>
 		
@@ -699,12 +699,12 @@
 								<xsl:element name="identifier">				
 									<xsl:element name="system">
 							   			<xsl:attribute name="value">
-							   				<xsl:value-of select="concat('urn:oid:', ./../../../assignedOrganization/id/@root)" />	     			
+							   				<xsl:value-of select="concat('urn:oid:', ./../../../v3:assignedOrganization/v3:id/@root)" />	     			
 							   			</xsl:attribute>						 
 									</xsl:element>					
 									<xsl:element name="value">
 							   			<xsl:attribute name="value">
-							     			<xsl:value-of select="./../../../assignedOrganization/id/@extension" />
+							     			<xsl:value-of select="./../../../v3:assignedOrganization/v3:id/@extension" />
 							   			</xsl:attribute>						
 									</xsl:element>					
 								</xsl:element>
@@ -717,12 +717,12 @@
 								
 								<xsl:element name="name">
 							   		<xsl:attribute name="value">
-							   			<xsl:value-of select="./../../../assignedOrganization/name"/> 			
+							   			<xsl:value-of select="./../../../v3:assignedOrganization/v3:name"/> 			
 							   		</xsl:attribute>						 
 								</xsl:element>	
 								
 								<!-- Parse the input XML to extract the Telephone and Email IDs -->
-								<xsl:for-each select="./../../../assignedOrganization/telecom">
+								<xsl:for-each select="./../../../v3:assignedOrganization/v3:telecom">
 								
 								    <xsl:variable name="contactVar" select="@value"></xsl:variable>							    
 								   
@@ -815,12 +815,12 @@
 								<xsl:element name="identifier">				
 									<xsl:element name="system">
 							   			<xsl:attribute name="value">
-							   				<xsl:value-of select="concat('urn:oid:', ./../../../assignedOrganization/id/@root)" />	     			
+							   				<xsl:value-of select="concat('urn:oid:', ./../../../v3:assignedOrganization/v3:id/@root)" />	     			
 							   			</xsl:attribute>						 
 									</xsl:element>					
 									<xsl:element name="value">
 							   			<xsl:attribute name="value">
-							     			<xsl:value-of select="./../../../assignedOrganization/id/@extension" />
+							     			<xsl:value-of select="./../../../v3:assignedOrganization/v3:id/@extension" />
 							   			</xsl:attribute>						
 									</xsl:element>					
 								</xsl:element>
@@ -833,12 +833,12 @@
 								
 								<xsl:element name="name">
 							   		<xsl:attribute name="value">
-							   			<xsl:value-of select="./../../../assignedOrganization/name"/>		
+							   			<xsl:value-of select="./../../../v3:assignedOrganization/v3:name"/>		
 							   		</xsl:attribute>						 
 								</xsl:element>	
 								
 								<!-- Parse the input XML to extract the Telephone and Email IDs -->
-								<xsl:for-each select="./../../../assignedOrganization/telecom">
+								<xsl:for-each select="./../../../v3:assignedOrganization/v3:telecom">
 								
 								    <xsl:variable name="contactVar" select="@value"></xsl:variable>							    
 								   
@@ -901,9 +901,9 @@
 	
 	<!-- Start of Template to format the Business Operation -->
 	
-	<xsl:template name="business-operation-template" match="/document/author/assignedEntity/representedOrganization/assignedEntity/assignedOrganization/assignedEntity/performance">
+	<xsl:template name="business-operation-template" match="/v3:document/v3:author/v3:assignedEntity/v3:representedOrganization/v3:assignedEntity/v3:assignedOrganization/v3:assignedEntity/v3:performance">
 		
-		<xsl:for-each select="actDefinition">		
+		<xsl:for-each select="v3:actDefinition">		
 		
 			<xsl:element name="parameter">
 					<xsl:element name="name">
@@ -944,18 +944,18 @@
 			    					</xsl:element>
 			    					<xsl:element name="code">
 			    						<xsl:attribute name="value">			    					
-			    							<xsl:value-of select="./code/@code"></xsl:value-of>			    					
+			    							<xsl:value-of select="./v3:code/@code"></xsl:value-of>			    					
 			    						</xsl:attribute>			    						 	    					
 			    					</xsl:element>
 			    					<xsl:element name="display">
 			    						<xsl:attribute name="value">			    					
-			    							<xsl:value-of select="./code/@displayName"></xsl:value-of>			    					
+			    							<xsl:value-of select="./v3:code/@displayName"></xsl:value-of>			    					
 			    						</xsl:attribute>			    						 	    					
 			    					</xsl:element>	    				
 			    				</xsl:element>			    			
 			    			</xsl:element>
 			    			
-			    			<xsl:for-each select="./subjectOf/approval">
+			    			<xsl:for-each select="./v3:subjectOf/v3:approval">
 			    			
 			    				<xsl:element name="specialty">
 				    				<xsl:element name="coding">
@@ -966,12 +966,12 @@
 				    					</xsl:element>
 				    					<xsl:element name="code">
 				    						<xsl:attribute name="value">			    					
-				    							<xsl:value-of select="./code/@code"></xsl:value-of>			    					
+				    							<xsl:value-of select="./v3:code/@code"></xsl:value-of>			    					
 				    						</xsl:attribute>			    						 	    					
 				    					</xsl:element>
 				    					<xsl:element name="display">
 				    						<xsl:attribute name="value">			    					
-				    							<xsl:value-of select="./code/@displayName"></xsl:value-of>			    					
+				    							<xsl:value-of select="./v3:code/@displayName"></xsl:value-of>			    					
 				    						</xsl:attribute>			    						 	    					
 				    					</xsl:element>	    				
 				    				</xsl:element>	
