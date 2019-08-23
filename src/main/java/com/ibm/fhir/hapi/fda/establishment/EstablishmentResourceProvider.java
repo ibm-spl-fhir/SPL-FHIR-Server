@@ -158,7 +158,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 		}
 
 		//Link the establishment to its optional usAgent. Handle multiple usAgent scenarios
-		//if (usAgent != null) {
+		if (usAgents != null) {
 			for (Organization usAgent: usAgents) {
 
 			//Validate the "US Agent" Organization resource
@@ -174,12 +174,12 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 			MethodOutcome out4 = validateOrgAffiliationOperation(usAgentAffiliation);
 
 			getAffiliationDao().create(usAgentAffiliation);
-
+			}
 		}
 
 		//Link the establishment to its optional importer. Handle multiple Importer scenario
-		//if (usAgent != null) {
-		for (Organization importer: importers) {
+		if (importers != null) {
+			for (Organization importer: importers) {
 			//Validate the "Importer" Organization resource
 			MethodOutcome out5 = validateOrganizationOperation(importer);
 			getOrganizationDao().create(importer);
@@ -193,6 +193,7 @@ public class EstablishmentResourceProvider implements IResourceProvider {
 			MethodOutcome out6 = validateOrgAffiliationOperation(importerAffiliation);
 
 			getAffiliationDao().create(importerAffiliation);
+			}
 		}
 
 		return establishment;
