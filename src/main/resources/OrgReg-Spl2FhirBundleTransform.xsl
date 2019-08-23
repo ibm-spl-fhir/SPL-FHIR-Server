@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:transform version="2.0" 
            xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-             xmlns:v3="http://hl7.org/fhir" 
-             xmlns:xs="http://www.w3.org/2001/XMLSchema"
-             exclude-result-prefixes="v3">
+             xmlns="http://hl7.org/fhir" 
+             xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	
 	<xsl:output method="xml"/>
 	<xsl:output indent="yes"/>
@@ -155,10 +154,8 @@
 		    	</xsl:element>
 		    
 		    	<xsl:element name="resource">
-		    		<xsl:element name="Organization">
-		    			<xsl:attribute name="xmlns1">
-		    	     		<xsl:copy-of select="$hl7FhirUrl"/>
-		        		</xsl:attribute>	
+		    		<xsl:element name="Organization" namespace="http://hl7.org/fhir">
+		    			 	
 		        		<!-- We don't need to set the ID attribute. It is set by the FHIR registration operation -->	 
 		        	
 		        		<xsl:element name = "meta">
@@ -369,10 +366,8 @@
 		    	</xsl:element>
 		    
 		    	<xsl:element name="resource">
-		    		<xsl:element name="Organization">
-		    			<xsl:attribute name="xmlns1">
-		    	     		<xsl:copy-of select="$hl7FhirUrl"/>
-		        		</xsl:attribute>		 
+		    		<xsl:element name="Organization" namespace="http://hl7.org/fhir">
+		    			  
 		        		<!-- We don't need to set the ID attribute. It is set by the FHIR registration operation -->	  
 		        	
 		        		<xsl:element name = "meta">
@@ -679,10 +674,8 @@
 				    	</xsl:element>
 			    
 				    	<xsl:element name="resource">
-				    		<xsl:element name="Organization">
-				    			<xsl:attribute name="xmlns1">
-				    	     		<xsl:copy-of select="$hl7FhirUrl"/>
-				        		</xsl:attribute>	
+				    		<xsl:element name="Organization" namespace="http://hl7.org/fhir">
+				    			 
 				        		<!-- We don't need to set the ID attribute. It is set by the FHIR registration operation -->		 
 				        	
 				        		<xsl:element name = "meta">
@@ -797,10 +790,8 @@
 				    	</xsl:element>
 			    
 				    	<xsl:element name="resource">
-				    		<xsl:element name="Organization">
-				    			<xsl:attribute name="xmlns1">
-				    	     		<xsl:copy-of select="$hl7FhirUrl"/>
-				        		</xsl:attribute>	
+				    		<xsl:element name="Organization" namespace="http://hl7.org/fhir">
+				    			 
 				        		<!-- We don't need to set the ID attribute. It is set by the FHIR registration operation -->		  
 				        	
 				        		<xsl:element name = "meta">
@@ -922,10 +913,8 @@
 			    	</xsl:element>
 		    
 			    	<xsl:element name="resource">
-			    		<xsl:element name="HealthcareService">
-			    			<xsl:attribute name="xmlns1">
-			    	     		<xsl:copy-of select="$hl7FhirUrl"/>
-			        		</xsl:attribute>
+			    		<xsl:element name="HealthcareService" namespace="http://hl7.org/fhir">
+			    			 
 			        		<!-- We don't need to set the ID attribute. It is set by the FHIR registration operation -->	  
 			        	
 			        		<xsl:element name = "meta">
