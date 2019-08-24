@@ -330,7 +330,7 @@
 								</xsl:choose>								
 								<xsl:element name="postalCode">
 									<xsl:attribute name="value">
-			   							<xsl:value-of select="./contactParty/addr/postalCode" />		 
+			   							<xsl:value-of select="./v3:contactParty/v3:addr/v3:postalCode" />		 
 			   						</xsl:attribute>
 								</xsl:element>
 								<xsl:element name="country">
